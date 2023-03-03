@@ -9,6 +9,8 @@ using LeaveManagement.Web.Data;
 using AutoMapper;
 using LeaveManagement.Web.Models;
 using LeaveManagement.Web.Contracts;
+using Microsoft.AspNetCore.Authorization;
+using LeaveManagement.Web.Constants;
 
 namespace LeaveManagement.Web.Controllers
 {
@@ -22,7 +24,7 @@ namespace LeaveManagement.Web.Controllers
             this.leaveTypeRepository = leaveTypeRepository;
             this.mapper = mapper;
 		}
-
+        [Authorize(Roles =Roles.Administrator)]
         // GET: LeaveTypes
         public async Task<IActionResult> Index()
         {
@@ -42,7 +44,6 @@ namespace LeaveManagement.Web.Controllers
             var leaveTypeVM = mapper.Map<LeaveTypeVM>(leaveType);
             return View(leaveTypeVM);
         }
-
         // GET: LeaveTypes/Create
         public IActionResult Create()
         {
